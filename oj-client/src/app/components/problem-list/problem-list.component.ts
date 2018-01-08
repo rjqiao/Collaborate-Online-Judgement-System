@@ -20,7 +20,9 @@ export class ProblemListComponent implements OnInit {
   }
 
   private getProblems(): void {
-    this.subscriptionProblems = this.data.getProblems()
-                                .subscribe(problems => this.problems = problems);
+    // this.subscriptionProblems = this.data.getProblems()
+    //                             .subscribe(problems => this.problems = problems);
+
+    this.data.getProblems().subscribe(problems => this.problems = problems);
   }
 } 
