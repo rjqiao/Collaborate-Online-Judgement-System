@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-declare let io: any;
+declare var io: any;
 
 @Injectable()
 export class CollaborationService {
@@ -9,12 +9,26 @@ export class CollaborationService {
 
   constructor() { }
 
-  init(): void {
-    console.log('collaboration service init');
-    this.collaborationSocket = io(window.location.origin, { query: "message=" + "123" });
+  init(editor: any, sessionId:string): void {
+    // console.log('collaboration service init');
+    this.collaborationSocket = io(window.location.origin, { query: "sessionId=" + sessionId });
 
-    this.collaborationSocket.on("message", (message)=>{
-      console.log("received: "+message);
-    })
+    //change from server
+    this.collaborationSocket.on('change', (delta: string) => {
+      console.log("collaboration: editor changes by " + delta);
+      delta = JSON.parse(delta);
+      editor.lastAppliedChange = delta;
+      editor.getSession().getDocument().applyDeltas([delta]);
+    });
+
+    //receive from editor?
+    this.collaborationSocket.on("message", (message) => {
+      console.log("received: " + message);
+    });
+  }
+
+  change(delta:string){
+    console.log("emit delta");
+    this.collaborationSocket.emit("change", delta);
   }
 }
