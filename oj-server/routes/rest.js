@@ -2,8 +2,16 @@
 var router = express.Router();
 var problemService = require("../services/problemService");
 var bodyParser = require("body-parser");
+var node_rest_client = require("node-rest-client").Client;
+
 var jsonParser = bodyParser.json();
 
+var rest_client = new node_rest_client();
+
+EXECUTOR_SERVER_URL = 'http://localhost:5000/build_and_run';
+rest_client.registerMethod('build_and_run',EXECUTOR_SERVER_URL, 'POST');
+
+// 获取problems
 router.get('/problems', function (req, res) {
   problemService.getProblems()
     .then(problems => res.json(problems));
@@ -15,6 +23,7 @@ router.get('/problems/:id', function (req, res) {
     .then(problem => res.json(problem));
 });
 
+// 更新problems
 router.post("/problems", jsonParser, function(req, res) {
   problemService.addProblem(req.body)
     .then(function (problem) {
@@ -22,6 +31,31 @@ router.post("/problems", jsonParser, function(req, res) {
     }, function (error) {
       res.status(400).send(error);
     });
+});
+
+router.post("/build_and_run", jsonParser, function(req, res){
+  const userCode = req.body.user_code;
+  const lang = req.body.lang;
+
+  console.log(lang + ': ' + userCode);
+  // res.json({
+  //   "aaa":123
+  // });
+
+  rest_client.methods.build_and_run(
+    {
+      data: {code: userCode, lang: lang},
+      headers: {'Content-Type': 'application/json'}
+    }, (data,response) => {
+      console.log("Received response from execution server: " + response);
+      const text = `Build output: ${data['build']}
+      Execute output: ${data['run']}`;
+
+      data['text'] = text;
+      res.json(data);
+    }
+  );
+
 });
 
 module.exports = router;

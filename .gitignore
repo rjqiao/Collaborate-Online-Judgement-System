@@ -8,9 +8,10 @@
 
 # dependencies
 node_modules/
+venv/
 
 # IDEs and editors
-/.idea
+.idea/
 .project
 .classpath
 .c9/

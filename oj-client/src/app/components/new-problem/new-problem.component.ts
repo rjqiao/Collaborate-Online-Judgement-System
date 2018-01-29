@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Problem } from "../../models/problem.model";
+import { Http, Response, Headers } from '@angular/http';
 
 const DEFAULT_PROBLEM: Problem = Object.freeze({
   id: 0,
@@ -19,7 +20,7 @@ export class NewProblemComponent implements OnInit {
 
   newProblem: Problem = Object.assign({}, DEFAULT_PROBLEM);
 
-  constructor(@Inject("data") private data) { }
+  constructor(@Inject("data") private data,private http: Http) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,19 @@ export class NewProblemComponent implements OnInit {
   addProblem(): void {
     this.data.addProblem(this.newProblem)
           .catch(error => console.log(error._body));
+
+
+    // let headers = new Headers({ 'content-type': 'application/json' });
+
+    // this.http.post('api/v1/problems', this.newProblem, headers)
+    //   .toPromise()
+    //   .then((res: Response) => {
+    //     this.getProblems();   //传数据给problemlist，problemlist用observer接收
+    //     return res.json();
+    //   })
+    //   .catch(this.handleError);
+
+
     this.newProblem = Object.assign({}, DEFAULT_PROBLEM);
   }
 }

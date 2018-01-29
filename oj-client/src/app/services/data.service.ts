@@ -33,11 +33,25 @@ export class DataService {
 
   addProblem(problem: Problem): Promise<Problem> {
     let headers = new Headers({ 'content-type': 'application/json' });
+    // 返回一个promise的结果（一个异步处理之后的结果）
     return this.http.post('api/v1/problems', problem, headers)
       .toPromise()
       .then((res: Response) => {
-        this.getProblems();
-        // return res.json();
+        this.getProblems();   //传数据给problemlist，problemlist用observer接收
+        return res.json();
+      })
+      .catch(this.handleError);
+  }
+
+  buildAndRun(data: any): Promise<Object> {
+    let headers = new Headers({ 'content-type': 'application/json' });
+    return this.http.post('api/v1/build_and_run', data, headers)
+      .toPromise()
+      .then((res: Response) => {
+        // this.getProblems(); 
+        console.log("data buildAndrun");
+        console.log(res);
+        return res.json();
       })
       .catch(this.handleError);
   }
