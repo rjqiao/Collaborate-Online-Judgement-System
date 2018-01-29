@@ -58,9 +58,9 @@ export class CollaborationService {
     });
 
     //receive from editor?
-    this.collaborationSocket.on("message", (message) => {
-      console.log("received: " + message);
-    });
+    // this.collaborationSocket.on("message", (message) => {
+    //   console.log("received: " + message);
+    // });
   }
 
   change(delta: string) {
