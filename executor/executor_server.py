@@ -17,6 +17,7 @@ def hello():
 @app.route("/build_and_run", methods=["POST"])
 def build_and_run():
     print("get called!")
+    print(request.data)
     data = json.loads(request.data)
     if 'code' not in data or 'lang' not in data:
         return "You should provide both 'code' and 'lang'"
@@ -24,13 +25,12 @@ def build_and_run():
     lang = data['lang']
     print("API got called with code %s in %s" % (code, lang))
 
-    # result = eu.build_and_run(code, lang)
-    # return jsonify(result)
-    return jsonify({"hello": "world"})
+    result = eu.build_and_run(code, lang)
+    return jsonify(result)
 
 
 if __name__ == "__main__":
-    # eu.load_image()
+    eu.load_image()
     if len(sys.argv) <= 1:
         port = 5000
     else:

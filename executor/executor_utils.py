@@ -5,7 +5,7 @@ import shutil
 
 from docker.errors import *
 
-IMAGE_NAME = "songhu/cs503_coj_demo"
+IMAGE_NAME = "rjqiao/coj-demo-1"
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 TEMP_BUILD_DIR = "%s/tmp/" % CURRENT_DIR
