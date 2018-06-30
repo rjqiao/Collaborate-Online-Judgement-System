@@ -11,10 +11,10 @@ declare var Auth0Lock: any;
 export class AuthService {
   // Configure Auth0
   clientId = '2Qlu_mMK1c2dw8sb1gW58Fwmktr6WrYn';
-  domain = 'rjqiaoapp.auth0.com'
+  domain = 'rjqiaoapp.auth0.com';
   lock = new Auth0Lock(this.clientId, this.domain, {});
 
-  constructor(private http : Http) { 
+  constructor(private http : Http) {
   }
 
   public login(): Promise<Object> {
@@ -56,7 +56,7 @@ export class AuthService {
       client_id: this.clientId,
       email: profile.email,
       connection: 'Username-Password-Authentication'
-    }
+    };
 
     this.http.post(url, body, headers)
       .toPromise()

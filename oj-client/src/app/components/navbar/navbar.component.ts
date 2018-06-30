@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
@@ -18,9 +18,10 @@ export class NavbarComponent implements OnInit {
   subscription: Subscription;
   searchBox: FormControl = new FormControl();
 
-  constructor( @Inject("auth") private auth,
-    @Inject("input") private input,
-    private router: Router) { }
+  constructor(@Inject("auth") private auth,
+              @Inject("input") private input,
+              private router: Router) {
+  }
 
   ngOnInit() {
     if (this.auth.authenticated()) {
@@ -31,9 +32,9 @@ export class NavbarComponent implements OnInit {
       .valueChanges
       .debounceTime(200)
       .subscribe(
-      term => {
-        this.input.changeInput(term);
-      }
+        term => {
+          this.input.changeInput(term);
+        }
       );
   }
 
