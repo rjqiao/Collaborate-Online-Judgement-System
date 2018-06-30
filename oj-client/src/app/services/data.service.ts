@@ -18,7 +18,7 @@ export class DataService {
     this.http.get("api/v1/problems")
       .toPromise()
       .then((res: Response) => {
-        this.problemsSource.next(res.json());
+        this.problemsSource.next(res.json());0
       })
       .catch(this.handleError);
     return this.problemsSource.asObservable();
@@ -48,7 +48,7 @@ export class DataService {
     return this.http.post('api/v1/build_and_run', data, headers)
       .toPromise()
       .then((res: Response) => {
-        // this.getProblems(); 
+        // this.getProblems();
         console.log("data buildAndrun");
         console.log(res);
         return res.json();
