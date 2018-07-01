@@ -37,7 +37,7 @@ int main() {
     'Python': `class Solution:
   def example():
     # Write your Python code here`
-  }
+  };
 
 
   constructor(@Inject('collaboration') private collaboration,
@@ -61,7 +61,7 @@ int main() {
 
     console.log("initEditor");
     document.getElementsByTagName('textarea')[0].focus();
-    
+
     // this.collaboration.init();
     this.collaboration.init(this.editor, this.sessionId);
 
@@ -78,7 +78,7 @@ int main() {
         this.collaboration.change(JSON.stringify(e));
       }
     });
-  
+
     this.editor.getSession().getSelection().on("changeCursor", () => {
       let cursor = this.editor.getSession().getSelection().getCursor();
       console.log('cursor moves: ' + JSON.stringify(cursor));

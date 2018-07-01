@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Problem } from "../../models/problem.model";
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnInit, Inject} from '@angular/core';
+import {Problem} from "../../models/problem.model";
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Component({
@@ -16,8 +16,9 @@ export class ProblemListComponent implements OnInit {
   searchTerm: string = '';
   subscriptionInput: Subscription;
 
-  constructor( @Inject("data") private data,
-    @Inject("input") private input) { }
+  constructor(@Inject("data") private data,
+              @Inject("input") private input) {
+  }
 
   ngOnInit() {
     this.getProblems();
@@ -33,4 +34,4 @@ export class ProblemListComponent implements OnInit {
     this.subscriptionInput = this.input.getInput()
       .subscribe(inputTerm => this.searchTerm = inputTerm);
   }
-} 
+}
