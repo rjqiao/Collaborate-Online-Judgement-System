@@ -47,12 +47,14 @@ int main() {
   ngOnInit() {
 
     this.route.params.subscribe(params => {
+      // every time "id" in route changed
       console.log("params[id]: "+params['id']);
       this.sessionId = params['id'];
       this.initEditor();
     });
   }
 
+  // 应该不是initEditor而是changeEditor
   initEditor(){
     this.editor = ace.edit('editor');
     this.editor.setTheme('ace/theme/eclipse');

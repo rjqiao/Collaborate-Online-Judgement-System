@@ -19,7 +19,7 @@ export class ProblemDetailComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         console.log(params["id"]);
-        this.data.getProblem(+params["id"])
+        this.getProblem(+params["id"])
           .then(problem => {
             if (problem == null) {
               this.problem = {
@@ -39,5 +39,9 @@ export class ProblemDetailComponent implements OnInit {
             };
           });
       });
+  }
+
+  private getProblem(id: number): Promise<Problem> {
+    return this.data.getProblem(id);
   }
 }

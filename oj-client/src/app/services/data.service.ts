@@ -14,7 +14,11 @@ export class DataService {
 
   constructor(private http: Http) { }
 
-  getProblems(): Observable<Problem[]> {
+  getProblemsSourceSubject(): Observable<Problem[]> {
+    return this.problemsSource.asObservable();
+  }
+
+  getProblemsProblemsSourceBroadcast(): void {
     this.http.get("api/v1/problems")
       .toPromise()
       .then((res: Response) => {
@@ -31,8 +35,8 @@ export class DataService {
     //     this.handleError(err);
     //   }
     // })();
-    
-    return this.problemsSource.asObservable();
+
+    // return this.problemsSource.asObservable();
   }
 
   getProblem(id: number): Promise<Problem> {
@@ -57,7 +61,7 @@ export class DataService {
     return this.http.post('api/v1/problems', problem, headers)
       .toPromise()
       .then((res: Response) => {
-        this.getProblems();   //传数据给problemlist，problemlist用observer接收
+        this.getProblemsProblemsSourceBroadcast();   //传数据给problemlist，problemlist用observer接收
         return res.json();
       })
       .catch(this.handleError);
@@ -76,7 +80,6 @@ export class DataService {
     return this.http.post('api/v1/build_and_run', data, headers)
       .toPromise()
       .then((res: Response) => {
-        // this.getProblems();
         console.log("data buildAndrun");
         console.log(res);
         return res.json();

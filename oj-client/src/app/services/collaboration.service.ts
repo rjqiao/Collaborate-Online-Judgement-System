@@ -14,8 +14,13 @@ export class CollaborationService {
   clientNum: number = 0;
   constructor() { }
 
+  // every time we switch to a new problem-detail page
+  // this.init(editor, sessionId) is called
   init(editor: any, sessionId: string): void {
     // console.log('collaboration service init');
+
+    // 切换页面的时候，socket会重新建立
+    // build or rebuild socket by socketId
     this.collaborationSocket = io(window.location.origin, { query: "sessionId=" + sessionId });
 
     //change from server
@@ -52,8 +57,8 @@ export class CollaborationService {
       }
       let Range = ace.require('ace/range').Range;
       let newMarker = session.addMarker(new Range(x, y, x, y + 1), 'editor_cursor_' + changeClientId, true);
-      // console.log("new marker: ");
-      // console.log(newMarker);
+      console.log("new marker: ");
+      console.log(newMarker);
       this.clientsInfo[changeClientId]['marker'] = newMarker;
     });
 
@@ -68,6 +73,7 @@ export class CollaborationService {
     this.collaborationSocket.emit("change", delta);
   }
 
+  // send cursorMove event to server
   cursorMove(cursor: string): void {
     this.collaborationSocket.emit("cursorMove", cursor);
   }

@@ -26,8 +26,9 @@ export class ProblemListComponent implements OnInit {
   }
 
   private getProblems(): void {
-    this.data.getProblems()
+    this.data.getProblemsSourceSubject()
       .subscribe(problems => this.problems = problems);
+    this.data.getProblemsProblemsSourceBroadcast();
   }
 
   private getSearchTerm(): void {

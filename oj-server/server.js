@@ -1,5 +1,5 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 var restRouter = require("./routes/rest");
 var indexRouter = require("./routes/index");
 var mongoose = require("mongoose");
