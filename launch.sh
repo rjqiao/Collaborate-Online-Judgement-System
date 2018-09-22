@@ -7,10 +7,10 @@ killall node
 brew services start redis
 cd ./oj-server
 npm install
-nodemon server.js &
+npx nodemon server.js &
 cd ../oj-client
 npm install
-ng build --watch
+npx ng build --watch
 
 echo "=================================================="
 read -p "PRESS [ENTER] TO TERMINATE PROCESSES." PRESSKEY
