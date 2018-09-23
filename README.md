@@ -22,6 +22,24 @@ sh ./launch.sh
 
 The project will be running on localhost:3000
 
+## To start code analysis service
+
+Install `docker`
+
+Run docker as service
+
+Then
+```
+cd ./executor
+docker build --rm -t rjqiao/coj-demo-1 .
+mkdir tmp
+python2 executor_utils.py
+```
+
+## Tech Details
+### Frontend
+The client is build on Angular and typescript.
+
 
 ## Previews
 
@@ -30,3 +48,6 @@ The project will be running on localhost:3000
 
 ### Problem Details
 ![Preview](./previews/ProblemDetails.png)
+
+### Execute Code
+![Preview](./previews/Executing.png)

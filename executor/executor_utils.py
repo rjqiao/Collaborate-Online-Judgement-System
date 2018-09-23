@@ -13,21 +13,25 @@ TEMP_BUILD_DIR = "%s/tmp/" % CURRENT_DIR
 SOURCE_FILE_NAMES = {
     "java": "Example.java",
     'python': 'example.py'
+    u'c++':'exemple.cpp'
 }
 
 BINARY_NAMES = {
     "java": "Example",
     'python': 'example.py'
+    u'c++':'exemple'
 }
 
 BUILD_COMMANDS = {
     "java": "javac",
     "python": "python"
+    u'c++': "g++"
 }
 
 EXECUTE_COMMANDS = {
     "java": "java",
     "python": "python"
+    u"c++":"example"
 }
 
 client = docker.from_env()
