@@ -21,3 +21,12 @@ sh ./launch.sh
 ```
 
 The project will be running on localhost:3000
+
+
+## Previews
+
+### Problem list and new problem
+![Preview](./previews/ProblemList.png)
+
+### Problem Details
+![Preview](./previews/ProblemDetails.png)
