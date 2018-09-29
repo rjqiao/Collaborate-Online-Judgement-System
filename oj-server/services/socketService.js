@@ -12,7 +12,7 @@ module.exports = function (io) {
     io.on('connection', socket => {
         let sessionId = socket.handshake.query['sessionId'];
         socketIdToSessionId[socket.id] = sessionId;
-        console.log("socket_id: "+ socket.id + " sessionId: "+sessionId);
+        console.log("socket_id: " + socket.id + " sessionId: " + sessionId);
 
         // add socket.id to corresponding collaboration session participants
         // if (!(sessionId in collaborations)){
@@ -24,33 +24,33 @@ module.exports = function (io) {
         // console.log("participants: " + collaborations[sessionId]['participants'])
 
 
-          if (sessionId in collaborations) {
+        if (sessionId in collaborations) {
             collaborations[sessionId]['participants'].push(socket.id);
-          } else {
-            redisClient.get(sessionPath + '/' + sessionId, function(data) {
-              if(data) {
-                console.log("session terminated previously; pulling back from Redis.");
-                collaborations[sessionId] = {
-                  'cachedChangeEvents': JSON.parse(data),
-                  'participants': []
-                };
-              } else {
-                console.log("creating new session");
-                collaborations[sessionId] = {
-                  'cachedChangeEvents': [],
-                  'participants': []
-                };
-              }
-              collaborations[sessionId]['participants'].push(socket.id);
+        } else {
+            redisClient.get(sessionPath + '/' + sessionId, function (data) {
+                if (data) {
+                    console.log("session terminated previously; pulling back from Redis.");
+                    collaborations[sessionId] = {
+                        'cachedChangeEvents': JSON.parse(data),
+                        'participants': []
+                    };
+                } else {
+                    console.log("creating new session");
+                    collaborations[sessionId] = {
+                        'cachedChangeEvents': [],
+                        'participants': []
+                    };
+                }
+                collaborations[sessionId]['participants'].push(socket.id);
             });
-          } 
+        }
 
         //socket event listeners
         socket.on('change', delta => {
             console.log("change " + socketIdToSessionId[socket.id] + " " + delta);
             let sessionId = socketIdToSessionId[socket.id];
             if (sessionId in collaborations) {
-              collaborations[sessionId]['cachedChangeEvents'].push(["change", delta, Date.now()]);
+                collaborations[sessionId]['cachedChangeEvents'].push(["change", delta, Date.now()]);
             }
             forwardEvents(socket.id, 'change', delta);
         });
@@ -85,7 +85,7 @@ module.exports = function (io) {
                     if (participants.length == 0) {
                         console.log("last participant left. Storing in Redis");
                         let key = sessionPath + '/' + sessionId;
-                        console.log('save in redis: '+key);
+                        console.log('save in redis: ' + key);
                         let value = JSON.stringify(collaborations[sessionId]['cachedChangeEvents']);
                         redisClient.set(key, value, redisClient.redisPrint);
                         redisClient.expire(key, TIMEOUT_IN_SECONDS);
