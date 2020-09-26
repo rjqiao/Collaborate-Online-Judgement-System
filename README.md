@@ -1,6 +1,5 @@
 # Collaborate-Online-Judgement-System by Rongjin Qiao
 
-Currently running on http://101.132.43.186:3000/
 
 ## Environment settings
 Install `npm` and `redis`
